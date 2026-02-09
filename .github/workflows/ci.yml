@@ -1,0 +1,75 @@
+name: CI
+
+on: 
+    push:
+        branches:
+          - main
+          - 'feature/**'
+        paths-ignore:
+          - 'README.md'
+    pull_request:
+        branches:
+            - main
+        paths-ignore:
+          - 'README.md'
+    workflow_dispatch:
+      
+
+jobs:
+    unit-testing:
+        name: Unit Testing
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repo
+            uses: actions/checkout@v4
+
+          - name: Set up Node.js
+            uses: actions/setup-node@v4
+            with:
+                node-version: '20'
+
+          - name: Install Dependencies
+            run: npm ci
+
+          - name: Run Unit Test
+            run: npm test
+
+    build:
+        name: Build Docker Image
+        permissions:
+            packages: write
+            contents: read
+        needs: [unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repo
+            uses: actions/checkout@v4
+         
+          - name: Build Docker image
+            run: docker build -t kubernetes-observability-demo:${{ github.sha }} .
+
+          - name: Docker Image Testing
+            run: |
+                docker images
+                docker run -d -p 3000:3000 \
+                --name node-app \
+                kubernetes-observability-demo:${{ github.sha }}
+
+                sleep 5
+                curl -f http://localhost:3000/health
+                docker rm -f node-app
+
+          - name: Dockerhub Login
+            uses: docker/login-action@v3
+            with:
+              username: ${{ vars.DOCKERHUB_USERNAME }}
+              password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+          - name: Container Registry Push
+            uses: docker/build-push-action@v4
+            with:
+                context: .
+                push: true
+                tags: |
+                    ${{ vars.DOCKERHUB_USERNAME }}/kubernetes-observability-demo:${{ github.sha }}
+                    ${{ vars.DOCKERHUB_USERNAME }}/kubernetes-observability-demo:latest
