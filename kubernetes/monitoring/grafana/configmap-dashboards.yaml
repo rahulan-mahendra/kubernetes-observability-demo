@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+data:
+  pod-metrics.json: |
+    # paste pod-metrics dashboard JSON here
+  http-metrics.json: |
+    # paste HTTP metrics dashboard JSON here
