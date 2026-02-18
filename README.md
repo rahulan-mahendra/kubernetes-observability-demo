@@ -78,24 +78,24 @@ cd kubernetes-observability-demo
 
 - Create namespaces
 ```bash
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/app/namespace.yaml
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/monitoring/namespace.yaml
+kubectl create -f /kubernetes-observability-demo/kubernetes/app/namespace.yaml
+kubectl create -f /kubernetes-observability-demo/kubernetes/monitoring/namespace.yaml
 ```
 
 - Deploy Node.js app
 ```bash
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/app/deployment.yaml
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/app/service.yaml
+kubectl create -f /kubernetes-observability-demo/kubernetes/app/deployment.yaml
+kubectl create -f /kubernetes-observability-demo/kubernetes/app/service.yaml
 ```
 
 - Deploy Prometheus
 ```bash
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/monitoring/prometheus/
+kubectl create -f /kubernetes-observability-demo/kubernetes/monitoring/prometheus/
 ```
 
 - Deploy Grafana
 ```bash
-kubectl create -f /home/rahulan/kubernetes-observability-demo/kubernetes/monitoring/grafana/
+kubectl create -f /kubernetes-observability-demo/kubernetes/monitoring/grafana/
 ```
 ---
 
