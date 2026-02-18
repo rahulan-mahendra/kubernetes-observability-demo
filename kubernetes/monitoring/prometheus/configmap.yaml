@@ -12,3 +12,4 @@ data:
       - job_name: 'nodejs-app'
         static_configs:
           - targets: ['node-observability-app.app:3000']
+        metrics_path: /metrics

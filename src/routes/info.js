@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/', (req, res) => {
   const start = Date.now();
-  res.send('Hello Observability!');
+  res.send('Kubernetes Observability Demo');
 });
 
 export default router;
