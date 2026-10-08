@@ -105,7 +105,7 @@ kubectl create -f /kubernetes-observability-demo/kubernetes/monitoring/grafana/
 |--------|-----|
 | Node App | `http://localhost:30080` |
 | Prometheus | `http://localhost:30090` |
-| Grafana | `http://localhost:30090` |
+| Grafana | `http://localhost:30300` |
 
 **Grafana Default Login**
 ```
